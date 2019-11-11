@@ -6,6 +6,26 @@ library(gmodels)
 library(class)
 
 csv = read.csv("data/tic-tac-toe.data")
+head(csv)
+tail(csv)
+shuffle_index <- sample(1:nrow(csv))
+head(shuffle_index)
+csv= csv[shuffle_index,]
+head(csv)
+
+prop.table((table(csv_train$positive)))
+
+#install.packages("rpart.plot")	
+library(rpart)
+library(rpart.plot)
+fit <- rpart(positive~., data = csv_train, method = 'class')
+rpart.plot(fit, extra = 106)
+
+predict_unseen <-predict(fit, csv_test, type = 'class')
+table_mat <- table(csv_test$positive, predict_unseen)
+table_mat
+
+#--------------------------
 
 set.seed(1)
 csv_rand =  csv[order(runif(957)),]
@@ -24,6 +44,8 @@ CrossTable(csv_predictions, csv_test$positive,
            dnn = c('predicted', 'actual'))
 
 
+
 #decision tree
 shuffle_index <- sample(1:nrow(csv))
 head(shuffle_index)
+
