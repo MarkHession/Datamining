@@ -25,6 +25,8 @@ predict_unseen <-predict(fit, csv_test, type = 'class')
 table_mat <- table(csv_test$positive, predict_unseen)
 table_mat
 
+
+
 #--------------------------
 
 set.seed(1)
