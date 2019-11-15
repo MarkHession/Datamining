@@ -7,6 +7,11 @@ bank <- read.csv("data/bank/bank.csv")
 # breaks plot(model)
 str(bank)
 
+summary(bank)
+
+bank$education = NULL
+bank$job= NULL
+
 
 set.seed(1)
 bank_rand <- bank[order(runif(4521)), ]
@@ -22,7 +27,6 @@ prop.table(table(bank_test$y))
 #train and predict
 library(C50)
 model <- C5.0(y ~ ., data = bank_train)
-#model <- C5.0(bank_train[-17], bank_train$y)
 # display simple facts about the tree
 model
 # display detailed information about the tree
