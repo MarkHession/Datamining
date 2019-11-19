@@ -17,8 +17,8 @@ set.seed(1)
 bank_rand <- bank[order(runif(4521)), ]
 
 # split the data frames
-bank_train <- bank_rand[1:4421, ]
-bank_test <- bank_rand[4422:4521, ]
+bank_train <- bank_rand[1:3617, ]
+bank_test <- bank_rand[3618:4521, ]
 
 # check the proportion of class variable
 prop.table(table(bank_train$y))
