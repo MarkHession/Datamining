@@ -44,23 +44,25 @@ normalize(c(10, 20, 30, 40, 50))
 # note doesn’t include the labels
 bank_n <- as.data.frame(lapply(bank[2:8], normalize))
 summary(bank_n$age)
+
 hist(bank_n$age)
 
 
 # create training and test data (no labels)
-bank_train <- bank_n[1:4421, ]
-bank_test <- bank_n[4422:4521, ]
+bank_train <- bank_n[1:3617, ]
+bank_test <- bank_n[3618:4521, ]
 
 
 # create labels for training and test data
-bank_train_labels <- bank[1:4421, 1]
-bank_test_labels <- bank[4422:4521, 1]
+bank_train_labels <- bank[1:3617, 1]
+bank_test_labels <- bank[3618:4521, 1]
 
 
 ## Step 3: Training a model on the data ----
+# square root of 904 is roughly 30 so that is our K value.
 library(class)
 predictions <- knn(train = bank_train, test =
-                     bank_test, cl = bank_train_labels, k=21)
+                     bank_test, cl = bank_train_labels, k=30)
 
 ## Step 4: Evaluating model performance ----
 # load the "gmodels" library
@@ -73,7 +75,7 @@ CrossTable(predictions, bank_test_labels,
            prop.c = FALSE, prop.r = FALSE)
 
 ##################
-# try several different values of k
+# trying several different values of k
 
 
 # k=1
@@ -94,9 +96,9 @@ predictions <- knn(train = bank_train, test = bank_test,
 CrossTable(predictions, bank_test_labels, 
            prop.chisq = FALSE, prop.c = FALSE, prop.r = FALSE)
 
-# k=15
+# k=17
 predictions <- knn(train = bank_train, test = bank_test, 
-                   cl = bank_train_labels, k=15)
+                   cl = bank_train_labels, k=17)
 CrossTable(predictions, bank_test_labels, 
            prop.chisq = FALSE, prop.c = FALSE, prop.r = FALSE)
 
@@ -108,6 +110,6 @@ CrossTable(predictions, bank_test_labels,
 
 # k=27
 predictions <- knn(train = bank_train, test = bank_test, 
-                   cl = bank_train_labels, k=27)
+                   cl = bank_train_labels, k=25)
 CrossTable(predictions, bank_test_labels, 
            prop.chisq = FALSE, prop.c = FALSE, prop.r = FALSE)

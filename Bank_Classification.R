@@ -9,9 +9,11 @@ str(bank)
 
 summary(bank)
 
-bank$education = NULL
-bank$job= NULL
-
+bank$month= NULL
+bank$job = NULL
+bank$contact = NULL
+bank$poutcome = NULL
+bank$pdays = NULL
 
 set.seed(1)
 bank_rand <- bank[order(runif(4521)), ]
@@ -33,7 +35,7 @@ model
 summary(model)
 # Evaluating model performance
 # Create a factor vector of predictions on test data
-predictions <- predict(model, bank_test)
+predictions <- predict(model, bank_test, type= 'class')
 
 
 # cross tabulation of predicted versus actual classes
@@ -44,6 +46,8 @@ CrossTable(predictions, bank_test$y,
 
 
 #tree
+plot(model, compress=TRUE)
+
 library(rpart)
 library(rpart.plot)
 fit <- rpart(y~., data = bank_train, method = 'class')
